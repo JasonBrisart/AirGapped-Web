@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search - AirGapped-Web</title>
+    <title>Website - AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/style.css">
@@ -10,8 +10,8 @@
 <body>
 
 <header>
-    <h1>Search</h1>
-    <p>Search preserved websites, pages, domains, tags, summaries, and indexed text.</p>
+    <h1>Website Record</h1>
+    <p>Archived website metadata, snapshots, and preserved pages.</p>
 
     <nav>
         <a href="home.html">Home</a>
@@ -22,25 +22,17 @@
 </header>
 
 <main>
-    <input
-        id="search-input"
-        class="search-box"
-        type="text"
-        placeholder="Search archived pages..."
-        autofocus
-    >
-
-    <div id="search-results"></div>
+    <div id="site-detail"></div>
 </main>
 
 <footer>
-    Search runs locally in the browser.
+    Website details are rendered from local archive records.
 </footer>
 
 <script src="data/archive-data.js"></script>
 <script src="assets/app.js"></script>
 <script>
-    AGW.renderSearch("search-input", "search-results");
+    AGW.renderSiteDetail("site-detail");
 </script>
 
 </body>

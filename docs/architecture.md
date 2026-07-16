@@ -1,26 +1,29 @@
 # AirGapped-Web Architecture
 
-AirGapped-Web is a portable offline archive system built from local files.
+AirGapped-Web v0.1.0 is an offline website archive.
 
-The system is designed to work without:
+The first goal is simple:
+
+Preserve websites as local files and make them browsable, searchable, and inspectable without internet access.
+
+## Requirements
+
+AirGapped-Web requires only:
+
+- A modern web browser
+
+It does not require:
 
 - Internet access
-- Cloud services
-- Databases
-- Backend servers
-- Python runtime
-- Package managers
+- Python
+- Node
+- npm
+- pip
+- Docker
+- A web server
+- A database
+- A package manager
 - External dependencies
-
-## Core Idea
-
-AirGapped-Web separates archive data from archive views.
-
-Data is stored as readable JavaScript records.
-
-Views are rendered through local HTML pages.
-
-This allows the archive to remain portable, inspectable, editable, and usable from a USB drive or air-gapped workstation.
 
 ## Core Objects
 
@@ -28,83 +31,76 @@ This allows the archive to remain portable, inspectable, editable, and usable fr
 
 The archive object describes the whole local archive.
 
-It contains:
+### Website
 
-- archive ID
-- archive name
-- version
-- description
-- maintainer
-- creation date
+A website record describes a preserved website.
 
-### Artifact
-
-An artifact is anything preserved by the archive.
-
-An artifact may represent:
-
-- a document
-- a research note
-- a media file
-- a source code package
-- a website snapshot
-- an image
-- an audio file
-- a report
-- a framework record
-
-Artifacts contain:
+A website has:
 
 - ID
 - title
-- type
-- status
-- created date
-- updated date
-- author identity
-- summary
-- body text
+- original URL
+- domain
+- description
 - tags
-- local file path
+- snapshots
 
-### Identity
+### Page
 
-An identity represents a person, organization, lab, group, or source.
+A page record describes one preserved page from a website.
 
-Identities prevent duplicated author/source information across many records.
+A page has:
 
-### Relationship
-
-A relationship links one artifact to another.
-
-Examples:
-
-- references
-- explains
-- depends-on
-- replaces
-- updates
-- cites
-- preserves
-- mirrors
-
-Relationships turn the archive from a folder of files into a knowledge graph.
+- ID
+- website ID
+- snapshot ID
+- title
+- original URL
+- local path
+- summary
+- captured date
+- tags
+- searchable text
 
 ### Snapshot
 
-A snapshot records the state of selected artifacts at a point in time.
+A snapshot describes a captured version of a website at a specific time.
 
-Snapshots are useful for preservation because archives should not only track the latest version.
+A snapshot has:
 
-They should preserve history.
+- ID
+- website ID
+- label
+- captured date
+- root path
+- description
+- page list
+
+## Design Principle
+
+Functionality first.
+
+The first version should prove that AirGapped-Web can:
+
+- list archived websites
+- open website records
+- list snapshots
+- list archived pages
+- open preserved local pages
+- search archive records
+- run from local files only
+
+The UI can be improved later.
 
 ## File Structure
 
 ```text
 AirGapped-Web/
 ├── home.html
+├── websites.html
+├── site.html
+├── page.html
 ├── search.html
-├── artifact.html
 ├── sitemap.html
 │
 ├── assets/
@@ -114,10 +110,10 @@ AirGapped-Web/
 ├── data/
 │   └── archive-data.js
 │
-├── docs/
-│   └── architecture.md
+├── archives/
+│   └── example-site/
+│       └── 2026-07-16/
+│           └── index.html
 │
-├── artifacts/
-├── media/
-├── snapshots/
-└── imports/
+└── docs/
+    └── architecture.md

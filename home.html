@@ -11,10 +11,11 @@
 
 <header>
     <h1>AirGapped-Web</h1>
-    <p>Portable offline knowledge archive.</p>
+    <p>Portable offline website archive.</p>
 
     <nav>
         <a href="home.html">Home</a>
+        websites.htmlWebsites</a>
         <a href="search.html">Search</a>
         <a href="sitemap.html">Site Map</a>
     </nav>
@@ -24,25 +25,33 @@
     <div id="archive-summary"></div>
 
     <section class="panel">
-        <h2>Latest Artifacts</h2>
+        <h2>Offline Website Archive</h2>
         <p>
-            These records are loaded from local archive data.
-            No server, database, or internet connection is required.
+            AirGapped-Web preserves websites as local files, metadata records,
+            page indexes, and snapshots that can be browsed without internet access.
         </p>
     </section>
 
-    <div id="artifact-list"></div>
+    <section class="panel">
+        <h2>Start Here</h2>
+        <p>
+            Open the archived websites list or search across preserved pages.
+        </p>
+
+        <p>
+            websites.htmlView Archived Websites</a>
+        </p>
+    </section>
 </main>
 
 <footer>
     AirGapped-Web runs entirely from local files.
 </footer>
 
-data/archive-data.jsscript>
-assets/app.jsscript>
+<script src="data/archive-data.js"></script>
+<script src="assets/app.js"></script>
 <script>
     AGW.renderArchiveSummary("archive-summary");
-    AGW.renderLatestArtifacts("artifact-list");
 </script>
 
 </body>

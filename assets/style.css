@@ -147,6 +147,16 @@ code {
     border-radius: 4px;
 }
 
+.button {
+    display: inline-block;
+    background: var(--link);
+    color: white !important;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
 footer {
     max-width: 1100px;
     margin: 40px auto;
