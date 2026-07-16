@@ -2,45 +2,29 @@
 
 ### The World Wide Web for Offline and Air-Gapped Systems
 
-AirGapped-Web is a lightweight HTML-based platform for creating linked knowledge networks that function entirely without internet connectivity.
+AirGapped-Web is a lightweight HTML-based platform for creating portable knowledge networks that function entirely without internet connectivity.
 
-Rather than relying on web servers, databases, cloud services, or third-party infrastructure, AirGapped-Web uses simple web technologies to create portable, browsable information systems that can be opened directly from local storage, removable media, isolated networks, or air-gapped environments.
+Using standard web technologies, AirGapped-Web allows researchers, archivists, developers, educators, and organizations to build searchable, browsable, and interconnected information systems that operate completely offline.
 
-The goal is simple:
-
-> If information matters, you should be able to browse it without needing the Internet.
+> If information matters, you should be able to browse it without the Internet.
 
 ---
 
 # Why AirGapped-Web Exists
 
-Most modern websites assume:
+Most websites assume:
 
-- Internet connectivity
+- Internet access
 - Cloud hosting
-- DNS infrastructure
 - Web servers
 - Databases
-- Third-party frameworks
-- Continuous updates
+- Continuous connectivity
 
-Many organizations operate in environments where these assumptions are not always practical.
+AirGapped-Web explores a different idea:
 
-Examples may include:
+> What if the useful parts of the web could exist entirely from local files?
 
-- Air-gapped laboratories
-- Research environments
-- Archive systems
-- Long-term preservation projects
-- Historical collections
-- Secure internal networks
-- Disaster recovery repositories
-- Field research systems
-- Portable knowledge libraries
-
-AirGapped-Web explores a different approach.
-
-Instead of building websites that require the Internet, it focuses on building portable web experiences that work entirely offline.
+Rather than relying on online infrastructure, AirGapped-Web focuses on creating knowledge systems that can be distributed, archived, copied, and used anywhere.
 
 ---
 
@@ -48,397 +32,222 @@ Instead of building websites that require the Internet, it focuses on building p
 
 ## Offline First
 
-The system should continue functioning without Internet access.
+Everything should function without internet access.
 
 ## Open Standards
 
-AirGapped-Web uses standard web technologies.
+AirGapped-Web is built using:
 
 - HTML
 - CSS
 - JavaScript
 
-No proprietary protocols.
-
-## Human Readable
-
-Content should remain understandable and maintainable.
+No proprietary formats.
 
 ## Portable
 
-Entire websites should be transferable between systems.
+Entire knowledge systems should be movable between:
 
-Examples:
-
+- Computers
 - USB drives
-- Internal repositories
-- Archive media
-- Offline servers
+- External storage
+- Research archives
+- Air-gapped environments
 
-## Long-Term Maintainability
+## Human Readable
 
-A website should still be readable years from now.
+Information should remain visible, understandable, and maintainable.
 
 ## Preservation Friendly
 
-Knowledge should be preservable.
-
-Not trapped inside cloud platforms.
-
----
-
-# What Is AirGapped-Web?
-
-AirGapped-Web is not:
-
-- A web server
-- A cloud platform
-- A content management system
-- A SaaS product
-- A social network
-
-AirGapped-Web is a linked information platform.
-
-Think:
-
-```text
-Documents
-    +
-Links
-    +
-Navigation
-    +
-Search
-```
-
-All operating locally.
-
----
-
-# What Can It Be Used For?
-
-AirGapped-Web can support:
-
-## Research Archives
-
-Store and browse:
-
-- Frameworks
-- Publications
-- Experiments
-- Notes
-- Reports
-
----
-
-## Documentation Systems
-
-Create:
-
-- Internal documentation
-- Team knowledge bases
-- Process manuals
-- Technical references
-
----
-
-## Digital Libraries
-
-Organize:
-
-- Collections
-- Books
-- PDFs
-- Media
-- Historical records
-
----
-
-## Preservation Projects
-
-Create browsable archives for:
-
-- Long-term storage
-- Historical material
-- Research preservation
-
----
-
-## Laboratory Knowledge Systems
-
-Maintain:
-
-- Experiments
-- Researchers
-- Procedures
-- Equipment records
-- Reports
-
----
-
-## Educational Content
-
-Deliver:
-
-- Offline courses
-- Training materials
-- Learning resources
-
----
-
-# Example Structure
-
-```text
-AIRGAPPED-WEB/
-
-├── home.html
-
-├── frameworks/
-│   ├── index.html
-│   ├── tfl.html
-│   └── research-framework.html
-
-├── research/
-│   ├── index.html
-│   ├── experiment001.html
-│   └── experiment002.html
-
-├── identities/
-│   ├── index.html
-│   └── researcher001.html
-
-├── archives/
-│   ├── index.html
-│   └── archive_record.html
-
-├── reports/
-│   ├── index.html
-│   └── annual_report.html
-
-├── search/
-│   └── search.html
-
-└── assets/
-    ├── style.css
-    └── logo.png
-```
-
-Open:
-
-```text
-home.html
-```
-
-And the entire website becomes available.
-
-No server required.
+Knowledge should remain accessible long after software platforms disappear.
 
 ---
 
 # Features
 
-## Hyperlinked Knowledge
+- Static HTML Pages
+- Hyperlinked Knowledge Networks
+- Offline Navigation
+- Local Search
+- Category Organization
+- Portable Deployments
+- Open Standards
+- Air-Gapped Friendly
+- Zero Backend Requirements
+- No Internet Required
 
-Connect information together using standard hyperlinks.
+---
 
-Example:
+# Use Cases
+
+## Research Archives
+
+Store and organize:
+
+- Frameworks
+- Research
+- Publications
+- Reports
+- Experiments
+
+## Documentation Systems
+
+Build:
+
+- Internal Wikis
+- Technical References
+- Procedures
+- Manuals
+
+## Preservation Projects
+
+Create:
+
+- Historical Collections
+- Digital Archives
+- Long-Term Knowledge Repositories
+
+## Educational Content
+
+Distribute:
+
+- Courses
+- Training Materials
+- Learning Resources
+
+## Offline Knowledge Libraries
+
+Maintain searchable collections without requiring internet connectivity.
+
+---
+
+# Repository Structure
 
 ```text
-Research
-    ↓
+AirGapped-Web/
+
+assets/
+pages/
+docs/
+examples/
+data/
+comments/
+
+home.html
+search.html
+sitemap.html
+
+README.md
+LICENSE
+CHANGELOG.md
+```
+
+---
+
+# Content Structure
+
+```text
+pages/
+
+frameworks/
+research/
+archives/
+identities/
+reports/
+projects/
+```
+
+Each category contains interconnected HTML pages that can be browsed using a standard web browser.
+
+---
+
+# How It Works
+
+Simply open:
+
+```text
+home.html
+```
+
+using any modern browser.
+
+No installation required.
+
+No server required.
+
+No database required.
+
+No internet required.
+
+---
+
+# Example Workflow
+
+```text
+Home
+   ↓
 Framework
-    ↓
-Experiment
-    ↓
+   ↓
+Research
+   ↓
+Archive
+   ↓
 Report
 ```
 
----
-
-## Offline Navigation
-
-Browse content without any network connection.
-
----
-
-## Local Search
-
-Optional JavaScript search functionality.
-
-No backend required.
-
----
-
-## Portable Websites
-
-Move complete websites between systems.
-
----
-
-## Static Pages
-
-No databases required.
-
-No server software required.
-
----
-
-## Long-Term Accessibility
-
-HTML remains one of the most stable and durable formats available.
-
----
-
-# Design Goals
-
-AirGapped-Web prioritizes:
-
-✅ Simplicity
-
-✅ Reliability
-
-✅ Transparency
-
-✅ Portability
-
-✅ Auditability
-
-✅ Open Standards
-
-✅ Preservation
-
-✅ Offline Capability
-
----
-
-# Future Ideas
-
-Potential future capabilities may include:
-
-## Wiki-Style Links
-
-```text
-[[Temporal Framework Logic]]
-```
-
----
-
-## Knowledge Graphs
-
-Visual relationship mapping.
-
-```text
-Framework
-    ↓
-Research
-    ↓
-Archive
-```
-
----
-
-## Automated Site Maps
-
-Generate navigation structures automatically.
-
----
-
-## Tag Systems
-
-Organize information through shared topics.
-
----
-
-## Relationship Tracking
-
-Connect:
-
-- Research
-- Frameworks
-- Reports
-- Identities
-- Archives
-
----
-
-## Portable Search Indexes
-
-Offline search across entire websites.
-
----
-
-# Who Is This For?
-
-AirGapped-Web may be useful for:
-
-- Researchers
-- Archivists
-- Historians
-- Laboratories
-- Preservation projects
-- Documentation teams
-- Educators
-- Developers
-- Offline environments
+Information becomes interconnected through standard hyperlinks.
 
 ---
 
 # What Makes AirGapped-Web Different?
 
-Most web platforms ask:
+Most web platforms focus on connectivity.
 
-> How do we connect users?
-
-AirGapped-Web asks:
-
-> How do we preserve knowledge?
+AirGapped-Web focuses on portability.
 
 Most web platforms depend on servers.
 
-AirGapped-Web depends on open files.
+AirGapped-Web depends on files.
 
-Most web platforms assume connectivity.
+Most web platforms assume internet access.
 
 AirGapped-Web assumes independence.
 
 ---
 
-# Philosophy
+# Future Goals
 
-The modern web is built around connectivity.
+Potential future capabilities may include:
 
-AirGapped-Web explores the idea that a useful web can exist without it.
+- Wiki-Style Links
+- Knowledge Relationships
+- Automated Site Maps
+- Tag Systems
+- Enhanced Search
+- Portable Comment Systems
+- Offline Knowledge Graphs
 
-Information does not become less valuable when disconnected from the Internet.
-
-Research remains research.
-
-Documentation remains documentation.
-
-Knowledge remains knowledge.
-
-AirGapped-Web exists to make that knowledge navigable.
+The project will remain focused on simplicity, maintainability, and open standards.
 
 ---
 
 # Status
 
-Experimental Project
+**Experimental Project**
 
-AirGapped-Web is an active exploration of offline knowledge systems, portable information networks, and web-based navigation for isolated environments.
+AirGapped-Web is an active exploration of portable knowledge systems and offline information networks.
 
-Features, capabilities, and architecture may evolve over time.
+Features, architecture, and capabilities may evolve over time.
 
 ---
 
 # License
 
-See LICENSE for licensing information.
+See the LICENSE file for licensing information.
 
 ---
 
 # AirGapped-Web
 
-### The World Wide Web for Offline and Air-Gapped Systems
-
-> Build connected knowledge without connectivity.
+### Build Connected Knowledge Without Connectivity
