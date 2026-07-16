@@ -175,3 +175,29 @@ footer {
         margin-bottom: 8px;
     }
 }
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.record-list {
+    padding-left: 24px;
+}
+
+.record-list li {
+    margin-bottom: 18px;
+}
+
+.result-count {
+    color: var(--muted);
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+}

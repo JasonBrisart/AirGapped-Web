@@ -4,36 +4,29 @@
     <meta charset="UTF-8">
     <title>Website - AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
 <header>
     <h1>Website Record</h1>
-    <p>Archived website metadata, snapshots, and preserved pages.</p>
-
+    <p>Archived website metadata, snapshots and pages.</p>
     <nav>
         <a href="home.html">Home</a>
-        websites.htmlWebsites</a>
+        <a href="websites.html">Websites</a>
+        <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
         <a href="sitemap.html">Site Map</a>
     </nav>
 </header>
-
 <main>
     <div id="site-detail"></div>
 </main>
-
-<footer>
-    Website details are rendered from local archive records.
-</footer>
-
+<footer>Website details are rendered from archive data.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/websites.js"></script>
 <script>
     AGW.renderSiteDetail("site-detail");
 </script>
-
 </body>
 </html>

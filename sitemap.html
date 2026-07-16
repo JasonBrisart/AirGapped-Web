@@ -1,39 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="enUTF-8">
     <title>Site Map - AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
 <header>
     <h1>Site Map</h1>
     <p>Local navigation index for the offline archive.</p>
-
     <nav>
         <a href="home.html">Home</a>
-        websites.htmlWebsites</a>
+        <a href="websites.html">Websites</a>
+        <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
         <a href="sitemap.html">Site Map</a>
     </nav>
 </header>
-
 <main>
     <div id="sitemap"></div>
 </main>
-
-<footer>
-    The site map is generated from local archive records.
-</footer>
-
+<footer>Generated from local archive metadata.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/sitemap.js"></script>
 <script>
     AGW.renderSitemap("sitemap");
 </script>
-
 </body>
 </html>
