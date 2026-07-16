@@ -122,46 +122,6 @@ Maintain searchable collections without requiring internet connectivity.
 
 ---
 
-# Repository Structure
-
-```text
-AirGapped-Web/
-
-assets/
-pages/
-docs/
-examples/
-data/
-comments/
-
-home.html
-search.html
-sitemap.html
-
-README.md
-LICENSE
-CHANGELOG.md
-```
-
----
-
-# Content Structure
-
-```text
-pages/
-
-frameworks/
-research/
-archives/
-identities/
-reports/
-projects/
-```
-
-Each category contains interconnected HTML pages that can be browsed using a standard web browser.
-
----
-
 # How It Works
 
 Simply open:
