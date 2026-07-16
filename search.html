@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" href="../assets/v class="container">
+
+<h1>Search</h1>
+
+<input
+    id="search"
+    type="text"
+    placeholder="Search..."
+>
+
+<ul id="results"></ul>
+
+</div>
+
+<script>
+
+const pages = [
+
+{
+title: "Example Framework",
+url: "../frameworks/example-framework.html"
+},
+
+{
+title: "Example Research",
+url: "../research/example-research.html"
+},
+
+{
+title: "Example Archive",
+url: "../archives/example-archive.html"
+},
+
+{
+title: "Example Identity",
+url: "../identities/example-identity.html"
+}
+
+];
+
+document
+.getElementById("search")
+.addEventListener("input", function () {
+
+const value = this.value.toLowerCase();
+
+let html = "";
+
+for (const page of pages) {
+
+if (
+page.title
+.toLowerCase()
+.includes(value)
+) {
+
+html += `
+<li>
+<a href="${page.url}">
+${page.title}
+</a>
+</li>
+`;
+
+}
+
+}
+
+document
+.getElementById("results")
+.innerHTML = html;
+
+});
+
+</script>
+
+</body>
+</html>
+``
