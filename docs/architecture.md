@@ -1,12 +1,8 @@
 # AirGapped-Web Architecture
 
-AirGapped-Web v0.2.0 is an offline website archive.
+AirGapped-Web v0.2.1 is an offline website record system. It preserves website files locally and provides browsable, searchable metadata without requiring internet access, servers, package managers, or external dependencies.
 
-The first goal is simple:
-
-Preserve websites as local files and make them browsable, searchable, and inspectable without internet access.
-
-## Requirements
+## Runtime Requirements
 
 AirGapped-Web requires only:
 
@@ -27,102 +23,117 @@ It does not require:
 
 ## Core Objects
 
-### Archive
+### Record System
 
-The archive object describes the whole local archive.
+The record system describes the whole local collection.
 
 ### Website
 
 A website record describes a preserved website.
 
-A website has:
+Fields:
 
-- ID
-- title
-- original URL
-- domain
-- description
-- tags
-- snapshots
-
-### Page
-
-A page record describes one preserved page from a website.
-
-A page has:
-
-- ID
-- website ID
-- snapshot ID
-- title
-- original URL
-- local path
-- summary
-- captured date
-- tags
-- searchable text
+- `id`
+- `title`
+- `original_url`
+- `domain`
+- `description`
+- `tags`
+- `snapshot_ids`
 
 ### Snapshot
 
 A snapshot describes a captured version of a website at a specific time.
 
-A snapshot has:
+Fields:
 
-- ID
-- website ID
-- label
-- captured date
-- root path
-- description
-- page list
+- `id`
+- `website_id`
+- `label`
+- `captured`
+- `root_path`
+- `description`
+- `page_ids`
 
-## Design Principle
+### Page
 
-Functionality first.
+A page record describes one preserved page from a website.
 
-The first version should prove that AirGapped-Web can:
+Fields:
 
-- list archived websites
-- open website records
-- list snapshots
-- list archived pages
-- open preserved local pages
-- search archive records
-- run from local files only
+- `id`
+- `website_id`
+- `snapshot_id`
+- `title`
+- `original_url`
+- `local_path`
+- `summary`
+- `captured`
+- `tags`
+- `text`
 
-The UI can be improved later.
+### Import
 
-## File Structure
+An import record documents how a preserved website entered the local record system.
+
+Fields:
+
+- `id`
+- `website_id`
+- `snapshot_id`
+- `label`
+- `imported`
+- `source_type`
+- `source_note`
+- `root_path`
+- `status`
+
+## Current File Structure
 
 ```text
 AirGapped-Web/
-├── home.html
+├── index.html
 ├── websites.html
-├── site.html
+├── website.html
 ├── page.html
 ├── imports.html
 ├── search.html
 ├── sitemap.html
-│
 ├── assets/
-│   ├── style.css
-│   ├── core.js
-│   ├── home.js
-│   ├── websites.js
-│   ├── pages.js
-│   ├── imports.js
-│   ├── search.js
-│   └── sitemap.js
-│
+│   └── style.css
 ├── data/
 │   └── archive-data.js
-│
-├── archives/
+├── modules/
+│   ├── archive-summary.js
+│   ├── core.js
+│   ├── import-registry.js
+│   ├── page-detail.js
+│   ├── search.js
+│   ├── sitemap.js
+│   ├── website-detail.js
+│   └── website-list.js
+├── records/
 │   └── example-site/
 │       └── 2026-07-16/
 │           └── index.html
-│
 └── docs/
     ├── architecture.md
-    └── imports.md
+    └── import-workflow.md
 ```
+
+## Design Principle
+
+Keep the root folder simple: double-click `index.html`, browse records, open local preserved pages, and search metadata. All behavior is plain browser JavaScript. All records are stored in `data/archive-data.js`.
+
+## Import Workflow
+
+1. Place preserved website files under `records/<site-id>/<date>/`.
+2. Add or update the matching website record in `data/archive-data.js`.
+3. Add a snapshot record with `root_path` pointing to the dated folder.
+4. Add page records with `local_path` pointing to local files.
+5. Add an import record documenting the source and registration status.
+6. Open `index.html` in a browser and confirm the validation panel is clean.
+
+## Safety Boundaries
+
+Local page links are intentionally limited to relative paths under `records/` or `archives/`. This keeps page links local and prevents accidental remote or absolute-path links.

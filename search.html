@@ -9,9 +9,10 @@
 <body>
 <header>
     <h1>Search</h1>
-    <p>Search websites, pages, domains, tags, summaries, and indexed page text.</p>
+    <p>Search websites, pages, domains, tags, summaries, and indexed text.</p>
     <nav>
-        <a href="home.html">Home</a>
+
+        <a href="index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -19,21 +20,14 @@
     </nav>
 </header>
 <main>
-    <label for="search-input">Search the archive</label>
-    <input
-        id="search-input"
-        class="search-box"
-        type="search"
-        placeholder="Search archived pages..."
-        autocomplete="off"
-        autofocus
-    >
+    <label for="search-input">Search the records</label>
+    <input id="search-input" class="search-box" type="search" placeholder="Search pages..." autocomplete="off" autofocus>
     <div id="search-results"></div>
 </main>
 <footer>Search runs entirely inside the local browser.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/core.js"></script>
-<script src="assets/search.js"></script>
+<script src="modules/core.js"></script>
+<script src="modules/search.js"></script>
 <script>
     AGW.renderSearch("search-input", "search-results");
 </script>

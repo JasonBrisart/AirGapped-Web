@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Archived Page - AirGapped-Web</title>
+    <title>Page - AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header>
-    <h1>Archived Page</h1>
-    <p>Preserved page metadata and local archive access.</p>
+    <h1>Page Record</h1>
+    <p>Preserved page metadata and local file access.</p>
     <nav>
-        <a href="home.html">Home</a>
+
+        <a href="index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -21,10 +22,10 @@
 <main>
     <div id="page-detail"></div>
 </main>
-<footer>Archived pages are stored as local files.</footer>
+<footer>Pages are stored as local files.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/core.js"></script>
-<script src="assets/pages.js"></script>
+<script src="modules/core.js"></script>
+<script src="modules/page-detail.js"></script>
 <script>
     AGW.renderPageDetail("page-detail");
 </script>

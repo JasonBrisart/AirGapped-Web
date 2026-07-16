@@ -1,40 +1,28 @@
 # AirGapped-Web
 
-### The World Wide Web for Offline and Air-Gapped Systems
+### Build Connected Knowledge Without Connectivity
 
-AirGapped-Web is a lightweight HTML-based platform for creating portable knowledge networks that function entirely without internet connectivity.
+AirGapped-Web is a lightweight HTML, CSS, and JavaScript project for browsing preserved website records entirely from local files.
 
-Using standard web technologies, AirGapped-Web allows researchers, archivists, developers, educators, and organizations to build searchable, browsable, and interconnected information systems that operate completely offline.
-
-> If information matters, you should be able to browse it without the Internet.
+If information matters, you should be able to browse it without the Internet.
 
 ---
 
-# Why AirGapped-Web Exists
+## Why AirGapped-Web Exists
 
-Most websites assume:
+Most websites assume internet access, cloud hosting, web servers, databases, and continuous connectivity. AirGapped-Web explores a different idea: useful website records can exist entirely from local files.
 
-- Internet access
-- Cloud hosting
-- Web servers
-- Databases
-- Continuous connectivity
-
-AirGapped-Web explores a different idea:
-
-> What if the useful parts of the web could exist entirely from local files?
-
-Rather than relying on online infrastructure, AirGapped-Web focuses on creating knowledge systems that can be distributed, archived, copied, and used anywhere.
+Rather than relying on online infrastructure, AirGapped-Web focuses on creating portable, inspectable, searchable website records that can be copied, archived, and used anywhere.
 
 ---
 
-# Core Philosophy
+## Core Philosophy
 
-## Offline First
+### Offline First
 
 Everything should function without internet access.
 
-## Open Standards
+### Open Standards
 
 AirGapped-Web is built using:
 
@@ -42,172 +30,78 @@ AirGapped-Web is built using:
 - CSS
 - JavaScript
 
-No proprietary formats.
+No proprietary runtime formats are required.
 
-## Portable
+### Portable
 
-Entire knowledge systems should be movable between:
+Entire record systems should be movable between computers, USB drives, external storage, research archives, and air-gapped environments.
 
-- Computers
-- USB drives
-- External storage
-- Research archives
-- Air-gapped environments
-
-## Human Readable
+### Human Readable
 
 Information should remain visible, understandable, and maintainable.
 
-## Preservation Friendly
+### Preservation Friendly
 
 Knowledge should remain accessible long after software platforms disappear.
 
 ---
 
-# Features
+## Features
 
-- Static HTML Pages
-- Hyperlinked Knowledge Networks
-- Offline Navigation
-- Local Search
-- Category Organization
-- Portable Deployments
-- Open Standards
-- Air-Gapped Friendly
-- Zero Backend Requirements
-- No Internet Required
-
----
-
-# Use Cases
-
-## Research Archives
-
-Store and organize:
-
-- Frameworks
-- Research
-- Publications
-- Reports
-- Experiments
-
-## Documentation Systems
-
-Build:
-
-- Internal Wikis
-- Technical References
-- Procedures
-- Manuals
-
-## Preservation Projects
-
-Create:
-
-- Historical Collections
-- Digital Archives
-- Long-Term Knowledge Repositories
-
-## Educational Content
-
-Distribute:
-
-- Courses
-- Training Materials
-- Learning Resources
-
-## Offline Knowledge Libraries
-
-Maintain searchable collections without requiring internet connectivity.
+- Static HTML pages
+- Offline navigation
+- Local metadata search
+- Website records
+- Snapshot records
+- Page records
+- Import records
+- Local preserved page links
+- No backend requirements
+- No internet required
 
 ---
 
-# How It Works
+## How To Run
 
-Simply open:
+Open this file in a modern browser:
 
 ```text
-home.html
+index.html
 ```
 
-using any modern browser.
-
-No installation required.
-
-No server required.
-
-No database required.
-
-No internet required.
+No installation required. No server required. No database required. No internet required.
 
 ---
 
-# Example Workflow
+## Current Folder Layout
 
 ```text
-Home
-   ↓
-Framework
-   ↓
-Research
-   ↓
-Archive
-   ↓
-Report
+AirGapped-Web/
+├── index.html
+├── websites.html
+├── website.html
+├── page.html
+├── imports.html
+├── search.html
+├── sitemap.html
+├── assets/
+├── data/
+├── modules/
+├── records/
+└── docs/
 ```
 
-Information becomes interconnected through standard hyperlinks.
+---
+
+## Manual Import Workflow
+
+1. Put preserved website files inside `records/<site-id>/<date>/`.
+2. Add metadata records to `data/archive-data.js`.
+3. Open `index.html`.
+4. Use Websites, Search, Imports, and Site Map to browse the local records.
 
 ---
 
-# What Makes AirGapped-Web Different?
+## Status
 
-Most web platforms focus on connectivity.
-
-AirGapped-Web focuses on portability.
-
-Most web platforms depend on servers.
-
-AirGapped-Web depends on files.
-
-Most web platforms assume internet access.
-
-AirGapped-Web assumes independence.
-
----
-
-# Future Goals
-
-Potential future capabilities may include:
-
-- Wiki-Style Links
-- Knowledge Relationships
-- Automated Site Maps
-- Tag Systems
-- Enhanced Search
-- Portable Comment Systems
-- Offline Knowledge Graphs
-
-The project will remain focused on simplicity, maintainability, and open standards.
-
----
-
-# Status
-
-**Experimental Project**
-
-AirGapped-Web is an active exploration of portable knowledge systems and offline information networks.
-
-Features, architecture, and capabilities may evolve over time.
-
----
-
-# License
-
-See the LICENSE file for licensing information.
-
----
-
-# AirGapped-Web
-
-### Build Connected Knowledge Without Connectivity
+Experimental project. The goal is simple, auditable, dependency-free offline browsing of website records.

@@ -9,9 +9,10 @@
 <body>
 <header>
     <h1>AirGapped-Web</h1>
-    <p>Portable offline website archive.</p>
+    <p>Portable offline website records.</p>
     <nav>
-        <a href="home.html">Home</a>
+
+        <a href="index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -21,22 +22,20 @@
 <main>
     <div id="archive-summary"></div>
     <section class="panel">
-        <h2>Offline Website Archive</h2>
-        <p>
-            AirGapped-Web preserves websites as local files, metadata records,
-            page indexes, and dated snapshots.
-        </p>
+        <h2>Offline Website Records</h2>
+        <p>AirGapped-Web preserves websites as local files, metadata records, page indexes, and dated snapshots.</p>
     </section>
     <section class="panel">
         <h2>Start Here</h2>
-        <p><a class="button" href="websites.html">View Archived Websites</a></p>
-        <p><a href="search.html">Search Archived Pages</a></p>
+        <p><a class="button" href="websites.html">View Websites</a></p>
+        <p><a href="search.html">Search Pages</a></p>
+        <p><a href="imports.html">View Import Registry</a></p>
     </section>
 </main>
 <footer>AirGapped-Web runs entirely from local files.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/core.js"></script>
-<script src="assets/home.js"></script>
+<script src="modules/core.js"></script>
+<script src="modules/archive-summary.js"></script>
 <script>
     AGW.renderArchiveSummary("archive-summary");
 </script>

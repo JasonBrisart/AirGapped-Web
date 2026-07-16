@@ -9,9 +9,10 @@
 <body>
 <header>
     <h1>Website Record</h1>
-    <p>Archived website metadata, snapshots and pages.</p>
+    <p>Website metadata, snapshots, imports, and pages.</p>
     <nav>
-        <a href="home.html">Home</a>
+
+        <a href="index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -19,14 +20,14 @@
     </nav>
 </header>
 <main>
-    <div id="site-detail"></div>
+    <div id="website-detail"></div>
 </main>
-<footer>Website details are rendered from archive data.</footer>
+<footer>Website details are rendered from local data.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/core.js"></script>
-<script src="assets/websites.js"></script>
+<script src="modules/core.js"></script>
+<script src="modules/website-detail.js"></script>
 <script>
-    AGW.renderSiteDetail("site-detail");
+    AGW.renderWebsiteDetail("website-detail");
 </script>
 </body>
 </html>

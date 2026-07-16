@@ -8,10 +8,11 @@
 </head>
 <body>
 <header>
-    <h1>Archived Websites</h1>
-    <p>Browse preserved websites stored inside this offline archive.</p>
+    <h1>Websites</h1>
+    <p>Browse preserved websites stored inside this offline record system.</p>
     <nav>
-        <a href="home.html">Home</a>
+
+        <a href="index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -21,10 +22,10 @@
 <main>
     <div id="website-list"></div>
 </main>
-<footer>Website records are loaded from local archive data.</footer>
+<footer>Website records are loaded from local data.</footer>
 <script src="data/archive-data.js"></script>
-<script src="assets/core.js"></script>
-<script src="assets/websites.js"></script>
+<script src="modules/core.js"></script>
+<script src="modules/website-list.js"></script>
 <script>
     AGW.renderAllWebsites("website-list");
 </script>
