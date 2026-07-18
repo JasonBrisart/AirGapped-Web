@@ -2,30 +2,21 @@
     "use strict";
     window.AGW = window.AGW || {};
     const core = AGW.core;
-
-    function renderOpenPageAction(page) {
+    function renderOpenPageAction(page){
         const localHref = core.localArchiveLink(page.local_path);
-        if (!localHref) {
-            return '<p class="empty">This page does not have a valid local path.</p>';
-        }
+        if (!localHref) return '<p class="empty">This page does not have a valid local path.</p>';
         return '<p>' + core.renderLink(localHref, 'Open Preserved Page', 'button') + '</p>';
     }
-
-    function renderPageDetail(targetId) {
-        const target = document.getElementById(targetId);
-        if (!target) return;
+    function renderPageDetail(targetId){
+        const target = document.getElementById(targetId); if (!target) return;
         const data = core.getData();
         const page = core.byId(data.pages, core.getQueryParam("id"));
-        if (!page) {
-            target.innerHTML = core.renderNotFound("Page not found.", "The selected page does not exist in this archive.");
-            return;
-        }
+        if (!page){ target.innerHTML = core.renderNotFound("Page not found.", "The selected page does not exist in this archive."); return; }
         const website = core.byId(data.websites, page.website_id);
         const snapshot = core.byId(data.snapshots, page.snapshot_id);
         const websiteTitle = website ? (website.title || website.id) : "Unknown Website";
         const snapshotLabel = snapshot ? (snapshot.label || snapshot.id) : "Unknown Snapshot";
         const backHref = website ? core.websiteLink(website.id) : "websites.html";
-
         target.innerHTML = `
             <section class="panel">
                 <div class="card-meta">${core.escapeHtml(websiteTitle)}</div>
@@ -44,9 +35,7 @@
             <section class="panel">
                 <h2>Searchable Text</h2>
                 <p>${core.escapeHtml(page.text || "No searchable text recorded.")}</p>
-            </section>
-        `;
+            </section>`;
     }
-
     AGW.renderPageDetail = renderPageDetail;
 })();

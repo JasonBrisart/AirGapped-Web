@@ -2,29 +2,18 @@
     "use strict";
     window.AGW = window.AGW || {};
     const core = AGW.core;
-
-    function renderValidationPanel(validation) {
-        if (validation.valid && validation.warnings.length === 0) return "";
+    function renderValidationPanel(v){
+        if (v.valid && v.warnings.length === 0) return "";
         let html = '<section class="panel"><h2>Catalog Validation</h2>';
-        if (validation.errors.length > 0) {
-            html += '<p><strong>' + validation.errors.length + ' error(s) found.</strong></p><ul class="record-list">';
-            for (const error of validation.errors) html += '<li>' + core.escapeHtml(error) + '</li>';
-            html += '</ul>';
-        }
-        if (validation.warnings.length > 0) {
-            html += '<p><strong>' + validation.warnings.length + ' warning(s) found.</strong></p><ul class="record-list">';
-            for (const warning of validation.warnings) html += '<li>' + core.escapeHtml(warning) + '</li>';
-            html += '</ul>';
-        }
-        html += '</section>';
-        return html;
+        if (v.errors.length > 0){ html += '<p><strong>'+v.errors.length+' error(s) found.</strong></p><ul class="record-list">';
+            for (const e of v.errors) html += '<li>'+core.escapeHtml(e)+'</li>'; html += '</ul>'; }
+        if (v.warnings.length > 0){ html += '<p><strong>'+v.warnings.length+' warning(s) found.</strong></p><ul class="record-list">';
+            for (const w of v.warnings) html += '<li>'+core.escapeHtml(w)+'</li>'; html += '</ul>'; }
+        html += '</section>'; return html;
     }
-
-    function renderArchiveSummary(targetId) {
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        const data = core.getData();
-        const validation = core.validateData();
+    function renderArchiveSummary(targetId){
+        const target = document.getElementById(targetId); if (!target) return;
+        const data = core.getData(); const validation = core.validateData();
         target.innerHTML = `
             <section class="panel">
                 <div class="card-meta">Version ${core.escapeHtml(data.archive.version || "Unspecified")}</div>
@@ -38,9 +27,7 @@
                     <div><strong>${data.imports.length}</strong><span>Imports</span></div>
                 </div>
             </section>
-            ${renderValidationPanel(validation)}
-        `;
+            ${renderValidationPanel(validation)}`;
     }
-
     AGW.renderArchiveSummary = renderArchiveSummary;
 })();

@@ -1,107 +1,71 @@
 # AirGapped-Web
 
-### Build Connected Knowledge Without Connectivity
+**Build connected knowledge without connectivity.**
 
-AirGapped-Web is a lightweight HTML, CSS, and JavaScript project for browsing preserved website records entirely from local files.
+AirGapped-Web is a tiny HTML/CSS/JavaScript app for browsing preserved website records entirely from local files. No server. No database. No internet. Just open a file.
 
-If information matters, you should be able to browse it without the Internet.
-
----
-
-## Why AirGapped-Web Exists
-
-Most websites assume internet access, cloud hosting, web servers, databases, and continuous connectivity. AirGapped-Web explores a different idea: useful website records can exist entirely from local files.
-
-Rather than relying on online infrastructure, AirGapped-Web focuses on creating portable, inspectable, searchable website records that can be copied, archived, and used anywhere.
+> If information matters, you should be able to browse it without the Internet.
 
 ---
 
-## Core Philosophy
+## What it does
 
-### Offline First
-
-Everything should function without internet access.
-
-### Open Standards
-
-AirGapped-Web is built using:
-
-- HTML
-- CSS
-- JavaScript
-
-No proprietary runtime formats are required.
-
-### Portable
-
-Entire record systems should be movable between computers, USB drives, external storage, research archives, and air-gapped environments.
-
-### Human Readable
-
-Information should remain visible, understandable, and maintainable.
-
-### Preservation Friendly
-
-Knowledge should remain accessible long after software platforms disappear.
+- Preserves websites as local files you can keep forever
+- Browses them through a clean, searchable interface
+- Records metadata (websites, snapshots, pages, imports)
+- Validates its own catalog every time you open it
+- Runs from a `file://` path — no install, no build step
 
 ---
 
-## Features
+## Quick start
 
-- Static HTML pages
-- Offline navigation
-- Local metadata search
-- Website records
-- Snapshot records
-- Page records
-- Import records
-- Local preserved page links
-- No backend requirements
-- No internet required
+1. Download or clone the folder.
+2. Double-click **`index.html`**.
+3. That's it — you're running AirGapped-Web.
+
+No installation. No server. No database. No internet.
+
+> **Browser note:** Under `file://`, Chrome and Edge may block the embedded snapshot iframe. Firefox shows it inline, and the **Open Snapshot in Full Page** button works in every browser.
 
 ---
 
-## How To Run
+## A 60-second tour
 
-Open this file in a modern browser:
+| Page | What you'll see |
+|------|-----------------|
+| **Home** | Archive summary + live catalog validation |
+| **Websites** | Every preserved website as a card |
+| **Website** | One site's snapshots, pages, and imports |
+| **Snapshot** | The actual preserved website, viewable inline |
+| **Page** | A single preserved page + its metadata |
+| **Search** | Instant local search across all metadata |
+| **Imports** | A record of how each site entered the archive |
+| **Site Map** | A flat index of everything in the archive |
+
+---
+
+## Where things live
 
 ```text
-index.html
+index.html      →  launch here
+app/            →  the application (styles, code, pages)
+archive/        →  your content (metadata + preserved sites)
+docs/           →  the deeper docs
 ```
 
-No installation required. No server required. No database required. No internet required.
+Want to add your own website? See **docs/import-workflow.md**.
+
+Want to understand how it's built? See **docs/architecture.md**.
 
 ---
 
-## Current Folder Layout
+## Design goals
 
-```text
-AirGapped-Web/
-├── index.html
-├── websites.html
-├── website.html
-├── page.html
-├── imports.html
-├── search.html
-├── sitemap.html
-├── assets/
-├── data/
-├── modules/
-├── records/
-└── docs/
-```
-
----
-
-## Manual Import Workflow
-
-1. Put preserved website files inside `records/<site-id>/<date>/`.
-2. Add metadata records to `data/archive-data.js`.
-3. Open `index.html`.
-4. Use Websites, Search, Imports, and Site Map to browse the local records.
+AirGapped-Web is meant to stay **offline, portable, auditable, human-readable, and dependency-free**. It deliberately avoids servers, databases, build tools, package managers, and cloud services — so an archive you make today still opens decades from now.
 
 ---
 
 ## Status
 
-Experimental project. The goal is simple, auditable, dependency-free offline browsing of website records.
+Experimental. The goal is simple, auditable, dependency-free offline browsing of preserved website records. Expect frequent iteration.

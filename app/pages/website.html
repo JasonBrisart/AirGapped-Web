@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <title>Website - AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <header>
     <h1>Website Record</h1>
     <p>Website metadata, snapshots, imports, and pages.</p>
     <nav>
-
-        <a href="index.html">Home</a>
+        <a href="../../index.html">Home</a>
         <a href="websites.html">Websites</a>
         <a href="imports.html">Imports</a>
         <a href="search.html">Search</a>
@@ -23,11 +22,9 @@
     <div id="website-detail"></div>
 </main>
 <footer>Website details are rendered from local data.</footer>
-<script src="data/archive-data.js"></script>
-<script src="modules/core.js"></script>
-<script src="modules/website-detail.js"></script>
-<script>
-    AGW.renderWebsiteDetail("website-detail");
-</script>
+<script src="../../archive/catalog/archive-data.js"></script>
+<script src="../modules/core.js"></script>
+<script src="../modules/website-detail.js"></script>
+<script>AGW.renderWebsiteDetail("website-detail");</script>
 </body>
 </html>

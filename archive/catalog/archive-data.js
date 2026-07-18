@@ -2,7 +2,7 @@ window.AGW_DATA = {
     archive: {
         id: "airgapped-web",
         name: "AirGapped-Web",
-        version: "0.2.1",
+        version: "0.3.1",
         mode: "offline-website-records",
         description:
             "A portable offline website record system that stores websites, " +

@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>AirGapped-Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="app/assets/style.css">
 </head>
 <body>
 <header>
     <h1>AirGapped-Web</h1>
     <p>Portable offline website records.</p>
     <nav>
-
         <a href="index.html">Home</a>
-        <a href="websites.html">Websites</a>
-        <a href="imports.html">Imports</a>
-        <a href="search.html">Search</a>
-        <a href="sitemap.html">Site Map</a>
+        <a href="app/pages/websites.html">Websites</a>
+        <a href="app/pages/imports.html">Imports</a>
+        <a href="app/pages/search.html">Search</a>
+        <a href="app/pages/sitemap.html">Site Map</a>
     </nav>
 </header>
 <main>
@@ -27,15 +26,15 @@
     </section>
     <section class="panel">
         <h2>Start Here</h2>
-        <p><a class="button" href="websites.html">View Websites</a></p>
-        <p><a href="search.html">Search Pages</a></p>
-        <p><a href="imports.html">View Import Registry</a></p>
+        <p><a href="app/pages/websites.html">Browse Websites</a></p>
+        <p><a href="app/pages/search.html">Search Pages</a></p>
+        <p><a href="app/pages/imports.html">View Imports</a></p>
     </section>
 </main>
 <footer>AirGapped-Web runs entirely from local files.</footer>
-<script src="data/archive-data.js"></script>
-<script src="modules/core.js"></script>
-<script src="modules/archive-summary.js"></script>
+<script src="archive/catalog/archive-data.js"></script>
+<script src="app/modules/core.js"></script>
+<script src="app/modules/archive-summary.js"></script>
 <script>
     AGW.renderArchiveSummary("archive-summary");
 </script>
