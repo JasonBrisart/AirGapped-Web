@@ -1,71 +1,64 @@
 # AirGapped-Web
-
 **Build connected knowledge without connectivity.**
-
-AirGapped-Web is a tiny HTML/CSS/JavaScript app for browsing preserved website records entirely from local files. No server. No database. No internet. Just open a file.
+AirGapped-Web is a tiny HTML/CSS/JavaScript app for browsing preserved website records entirely from local files — and now for **crawling live sites into an offline database** you can browse without the internet.
 
 > If information matters, you should be able to browse it without the Internet.
 
 ---
-
 ## What it does
-
-- Preserves websites as local files you can keep forever
+- **Crawls a website** (the Archiver) and stores every reachable page + its metadata into an offline database
+- Preserves websites as local files or inline captured copies you can keep forever
 - Browses them through a clean, searchable interface
 - Records metadata (websites, snapshots, pages, imports)
 - Validates its own catalog every time you open it
-- Runs from a `file://` path — no install, no build step
+- Runs from a `file://` path — no install, no build step, no dependencies
 
 ---
-
 ## Quick start
-
 1. Download or clone the folder.
 2. Double-click **`index.html`**.
-3. That's it — you're running AirGapped-Web.
+3. Open the **Archiver**, paste a URL, and crawl.
 
-No installation. No server. No database. No internet.
-
-> **Browser note:** Under `file://`, Chrome and Edge may block the embedded snapshot iframe. Firefox shows it inline, and the **Open Snapshot in Full Page** button works in every browser.
+No installation. No server. No database engine. No dependencies.
 
 ---
+## The Archiver (offline "Wayback Machine")
+Think of it as a local, offline-first version of the Internet Archive's Wayback Machine:
+1. Go to **Archiver**, enter a start URL, choose a page limit, and start the crawl.
+2. It fetches pages with the browser's built-in `fetch`, parses them with `DOMParser`, follows same-domain links, and extracts title / description / text / links.
+3. Every page is written into the offline database (browser `localStorage`) with its HTML stored **inline**, so it opens later with **no internet**.
+4. Crawled sites instantly appear under **Websites**, **Search**, and the **Snapshot Viewer**.
 
+**Honest limits (browser reality):**
+- Browsers block cross-origin `fetch` for many public sites (CORS). When that happens, use **Manual Capture**: open the page, copy its source, paste it in, and archive that page offline.
+- Crawling reaches the network once (to capture). Everything after is fully offline.
+- Assets like images/CSS on remote pages may not render offline unless the site allowed them to be fetched; text, structure, and metadata always persist.
+
+---
 ## A 60-second tour
-
 | Page | What you'll see |
 |------|-----------------|
 | **Home** | Archive summary + live catalog validation |
-| **Websites** | Every preserved website as a card |
+| **Websites** | Every preserved/crawled website as a card |
 | **Website** | One site's snapshots, pages, and imports |
-| **Snapshot** | The actual preserved website, viewable inline |
+| **Archiver** | Crawl a site into the offline database |
+| **Snapshot** | The captured website, viewable offline |
 | **Page** | A single preserved page + its metadata |
 | **Search** | Instant local search across all metadata |
 | **Imports** | A record of how each site entered the archive |
 | **Site Map** | A flat index of everything in the archive |
 
 ---
-
 ## Where things live
-
 ```text
-index.html      →  launch here
-app/            →  the application (styles, code, pages)
-archive/        →  your content (metadata + preserved sites)
-docs/           →  the deeper docs
+index.html      ->  launch here
+app/            ->  the application (styles, code, pages)
+archive/        ->  your content (metadata + preserved sites)
+docs/           ->  the deeper docs
 ```
 
-Want to add your own website? See **docs/import-workflow.md**.
+### Design goals
+Offline, portable, auditable, human-readable, and dependency-free. No servers, databases, build tools, or package managers. The Archiver reaches the network only during a crawl; browsing is always offline.
 
-Want to understand how it's built? See **docs/architecture.md**.
-
----
-
-## Design goals
-
-AirGapped-Web is meant to stay **offline, portable, auditable, human-readable, and dependency-free**. It deliberately avoids servers, databases, build tools, package managers, and cloud services — so an archive you make today still opens decades from now.
-
----
-
-## Status
-
-Experimental. The goal is simple, auditable, dependency-free offline browsing of preserved website records. Expect frequent iteration.
+### Status
+Experimental. Expect frequent iteration.

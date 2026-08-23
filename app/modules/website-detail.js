@@ -8,7 +8,6 @@
         for (const s of snapshots){
             const pages = core.snapshotPages(s.id);
             const snapshotHref = core.snapshotLink(s.id);
-            const defaultPageHref = core.snapshotPreferredPage(s, pages);
             html += `
                 <li>
                     <strong>${core.escapeHtml(s.label || s.id || "Unnamed Snapshot")}</strong><br>
@@ -16,9 +15,8 @@
                     Root path: <code>${core.escapeHtml(s.root_path || "No root path recorded.")}</code><br>
                     Registered pages: ${pages.length}
                     <p>${core.escapeHtml(s.description || "No snapshot description recorded.")}</p>
-                    <p>${core.renderLink(snapshotHref, "View Snapshot", "button")}</p>`;
-            if (defaultPageHref) html += `<p>${core.renderLink(defaultPageHref, "Open Preserved Website")}</p>`;
-            html += '</li>';
+                    <p>${core.renderLink(snapshotHref, "View Snapshot", "button")}</p>
+                </li>`;
         }
         return html;
     }
@@ -41,16 +39,22 @@
         if (!Array.isArray(pages) || pages.length === 0) return '<li>No pages recorded.</li>';
         let html = "";
         for (const p of pages){
-            const preservedPageHref = core.localArchiveLink(p.local_path);
             html += `
                 <li>
                     ${core.renderLink(core.pageLink(p.id), p.title || p.id || "Unnamed Page")}<br>
                     <span>${core.escapeHtml(p.summary || "No summary recorded.")}</span><br>
-                    <code>${core.escapeHtml(p.local_path || "No local path recorded.")}</code>`;
-            if (preservedPageHref) html += '<br>' + core.renderLink(preservedPageHref, "Open Preserved Page");
+                    <code>${core.escapeHtml(p.original_url || p.local_path || "No path recorded.")}</code>`;
+            if (p.inline_html) html += '<br><span class="tag">offline copy stored</span>';
             html += '</li>';
         }
         return html;
+    }
+    function renderCrawledActions(website){
+        if (!core.isArchivedWebsite(website.id)) return "";
+        return `<p>
+            <button class="button" id="agw-export-site" type="button">Export to Files (.zip)</button>
+            <button class="button" id="agw-del-site" type="button">Delete This Crawled Site</button>
+        </p>`;
     }
     function renderWebsiteDetail(targetId){
         const target = document.getElementById(targetId); if (!target) return;
@@ -69,10 +73,10 @@
                 <p><strong>Website ID:</strong> <code>${core.escapeHtml(website.id)}</code></p>
                 <h3>Tags</h3>
                 <div class="tag-row">${core.renderTags(website.tags)}</div>
+                ${renderCrawledActions(website)}
             </section>
             <section class="panel">
                 <h2>Snapshots</h2>
-                <p>Open a preserved website snapshot directly from local files.</p>
                 <ul class="record-list">${renderSnapshotList(snapshots)}</ul>
             </section>
             <section class="panel">
@@ -84,6 +88,17 @@
                 <ul class="record-list">${renderImportList(imports)}</ul>
             </section>
             <p><a href="websites.html">Back to All Websites</a></p>`;
+        const delBtn = document.getElementById("agw-del-site");
+        if (delBtn) delBtn.addEventListener("click", () => {
+            if (window.confirm("Delete this crawled site from the offline database?")){
+                core.deleteArchivedWebsite(website.id);
+                window.location.href = "websites.html";
+            }
+        });
+        const exportBtn = document.getElementById("agw-export-site");
+        if (exportBtn && AGW.exportArchivedWebsite) exportBtn.addEventListener("click", () => {
+            AGW.exportArchivedWebsite(website);
+        });
     }
     AGW.renderWebsiteDetail = renderWebsiteDetail;
 })();

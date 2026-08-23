@@ -6,10 +6,11 @@
         const snapshots = core.websiteSnapshots(w.id);
         const pages = core.websitePages(w.id);
         const imports = core.websiteImports(w.id);
+        const badge = core.isArchivedWebsite(w.id) ? ' <span class="tag">crawled</span>' : "";
         return `
             <article class="card">
                 <div class="card-meta">${core.escapeHtml(w.domain || "Unknown domain")}</div>
-                <h2>${core.renderLink(core.websiteLink(w.id), w.title || w.id || "Unnamed Website")}</h2>
+                <h2>${core.renderLink(core.websiteLink(w.id), w.title || w.id || "Unnamed Website")}${badge}</h2>
                 <p>${core.escapeHtml(w.description)}</p>
                 <p><strong>Original URL:</strong> <code>${core.escapeHtml(w.original_url)}</code></p>
                 <p><strong>Snapshots:</strong> ${snapshots.length}</p>
@@ -21,7 +22,7 @@
     function renderWebsiteList(targetId, websites){
         const target = document.getElementById(targetId); if (!target) return;
         if (!Array.isArray(websites) || websites.length === 0){
-            target.innerHTML = '<section class="panel"><p class="empty">No websites found.</p></section>'; return; }
+            target.innerHTML = '<section class="panel"><p class="empty">No websites found. Use the <a href="archiver.html">Archiver</a> to crawl one.</p></section>'; return; }
         let html = ""; for (const w of websites) html += renderWebsiteCard(w); target.innerHTML = html;
     }
     function renderAllWebsites(targetId){ renderWebsiteList(targetId, core.getData().websites); }

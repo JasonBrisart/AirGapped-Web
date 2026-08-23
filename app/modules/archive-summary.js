@@ -8,7 +8,7 @@
         if (v.errors.length > 0){ html += '<p><strong>'+v.errors.length+' error(s) found.</strong></p><ul class="record-list">';
             for (const e of v.errors) html += '<li>'+core.escapeHtml(e)+'</li>'; html += '</ul>'; }
         if (v.warnings.length > 0){ html += '<p><strong>'+v.warnings.length+' warning(s) found.</strong></p><ul class="record-list">';
-            for (const w of v.warnings) html += '<li>'+core.escapeHtml(w)+'</li>'; html += '</ul>'; }
+            for (const wn of v.warnings) html += '<li>'+core.escapeHtml(wn)+'</li>'; html += '</ul>'; }
         html += '</section>'; return html;
     }
     function renderArchiveSummary(targetId){

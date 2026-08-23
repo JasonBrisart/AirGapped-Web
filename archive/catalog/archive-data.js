@@ -2,11 +2,12 @@ window.AGW_DATA = {
     archive: {
         id: "airgapped-web",
         name: "AirGapped-Web",
-        version: "0.3.1",
+        version: "0.4.0",
         mode: "offline-website-records",
         description:
             "A portable offline website record system that stores websites, " +
-            "pages, snapshots, import records, and searchable metadata using local files only.",
+            "pages, snapshots, import records, and searchable metadata using local files only, " +
+            "and can crawl live sites into an offline database.",
         created: "2026-07-16",
         maintainer: "Jason Brisart"
     },

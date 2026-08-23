@@ -19,6 +19,7 @@
                 <ul class="record-list">
                     <li><a href="../../index.html">Home</a></li>
                     <li><a href="websites.html">Websites</a></li>
+                    <li><a href="archiver.html">Archiver</a></li>
                     <li><a href="imports.html">Imports</a></li>
                     <li><a href="search.html">Search</a></li>
                     <li><a href="sitemap.html">Site Map</a></li>

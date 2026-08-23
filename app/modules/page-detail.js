@@ -2,9 +2,15 @@
     "use strict";
     window.AGW = window.AGW || {};
     const core = AGW.core;
-    function renderOpenPageAction(page){
+    function renderContentAction(page){
+        if (page.inline_html){
+            const safe = core.escapeHtml(page.inline_html);
+            return `
+                <h3>Captured Page (offline)</h3>
+                <iframe srcdoc="${safe}" title="Captured page" style="width:100%;height:600px;border:1px solid var(--border);border-radius:8px;background:white;" sandbox="allow-popups"></iframe>`;
+        }
         const localHref = core.localArchiveLink(page.local_path);
-        if (!localHref) return '<p class="empty">This page does not have a valid local path.</p>';
+        if (!localHref) return '<p class="empty">This page has no captured content and no valid local path.</p>';
         return '<p>' + core.renderLink(localHref, 'Open Preserved Page', 'button') + '</p>';
     }
     function renderPageDetail(targetId){
@@ -29,7 +35,7 @@
                 <h3>Tags</h3>
                 <div class="tag-row">${core.renderTags(page.tags)}</div>
                 <hr>
-                ${renderOpenPageAction(page)}
+                ${renderContentAction(page)}
                 <p>${core.renderLink(backHref, 'Back to Website')}</p>
             </section>
             <section class="panel">

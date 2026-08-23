@@ -8,17 +8,27 @@
         for (const page of pages){
             const safePath = core.localArchiveLink(page.local_path);
             html += '<li>';
-            html += safePath ? core.renderLink(safePath, page.title || page.id || "Unnamed Page", "") : core.escapeHtml(page.title || page.id || "Unnamed Page");
+            if (page.id) html += core.renderLink(core.pageLink(page.id), page.title || page.id || "Unnamed Page");
+            else html += core.escapeHtml(page.title || "Unnamed Page");
             html += '<br>';
             html += '<span>' + core.escapeHtml(page.summary || "No summary recorded.") + '</span><br>';
-            html += '<code>' + core.escapeHtml(page.local_path || "No local path recorded.") + '</code>';
-            if (page.id) html += '<br>' + core.renderLink(core.pageLink(page.id), "View Page Record");
+            html += '<code>' + core.escapeHtml(page.original_url || page.local_path || "No path recorded.") + '</code>';
+            if (!page.inline_html && safePath) html += '<br>' + core.renderLink(safePath, "Open Preserved File");
             html += '</li>';
         }
         html += '</ul>';
         return html;
     }
-    function renderViewerFrame(defaultPath){
+    function renderInlineFrame(page){
+        const safe = core.escapeHtml(page.inline_html);
+        return `
+            <section class="panel">
+                <h2>Website Viewer</h2>
+                <p><strong>Viewing:</strong> ${core.escapeHtml(page.title || page.original_url || "Captured page")}</p>
+                <iframe srcdoc="${safe}" title="Captured website snapshot" style="width:100%;height:700px;border:1px solid var(--border);border-radius:8px;background:white;" sandbox="allow-popups"></iframe>
+            </section>`;
+    }
+    function renderFileFrame(defaultPath){
         if (!defaultPath){
             return `
                 <section class="panel">
@@ -41,9 +51,11 @@
         if (!snapshot){ target.innerHTML = core.renderNotFound("Snapshot not found.", "The selected snapshot does not exist in this archive."); return; }
         const website = core.byId(data.websites, snapshot.website_id);
         const pages = core.snapshotPages(snapshot.id);
-        const defaultPath = core.snapshotPreferredPage(snapshot, pages);
         const websiteTitle = website ? (website.title || website.id) : "Unknown Website";
         const backHref = website ? core.websiteLink(website.id) : "websites.html";
+        // Prefer an inline (crawled) home page; fall back to a local file path.
+        const inlineHome = pages.find(p => p && p.inline_html);
+        const frame = inlineHome ? renderInlineFrame(inlineHome) : renderFileFrame(core.snapshotPreferredPage(snapshot, pages));
         target.innerHTML = `
             <section class="panel">
                 <div class="card-meta">${core.escapeHtml(websiteTitle)}</div>
@@ -55,7 +67,7 @@
                 <p><strong>Registered pages:</strong> ${pages.length}</p>
                 <p>${core.renderLink(backHref, "Back to Website")}</p>
             </section>
-            ${renderViewerFrame(defaultPath)}
+            ${frame}
             <section class="panel">
                 <h2>Registered Pages in This Snapshot</h2>
                 ${renderPageNavigation(pages)}

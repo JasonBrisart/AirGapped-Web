@@ -27,16 +27,7 @@
         target.innerHTML = `
             <section class="panel">
                 <h2>Import Workflow</h2>
-                <p>AirGapped-Web does not crawl or write website files by itself. A website import is registered by placing preserved files inside the <code>records/</code> folder and adding records to <code>archive/catalog/archive-data.js</code>.</p>
-                <ol>
-                    <li>Create a website folder under <code>records/</code>.</li>
-                    <li>Create a dated snapshot folder.</li>
-                    <li>Place the preserved website files inside the snapshot folder.</li>
-                    <li>Add a website record.</li>
-                    <li>Add a snapshot record.</li>
-                    <li>Add records for searchable pages.</li>
-                    <li>Add an import record documenting the source and local path.</li>
-                </ol>
+                <p>Websites can enter the archive two ways: <strong>automatically</strong> via the <a href="archiver.html">Archiver</a> (crawls a site into the offline database), or <strong>manually</strong> by placing preserved files under <code>records/</code> and adding records to <code>archive/catalog/archive-data.js</code>.</p>
             </section>
             <section class="panel"><h2>Registered Imports</h2><p>${data.imports.length} import record(s) registered.</p></section>
             ${importHtml || '<section class="panel"><p class="empty">No imports recorded.</p></section>'}`;

@@ -31,7 +31,8 @@ main { max-width: 1100px; margin: 24px auto; padding: 0 20px; }
 .search-box { width: 100%; padding: 14px; font-size: 18px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; }
 .empty { color: var(--muted); }
 code { background: #eeeeee; padding: 2px 5px; border-radius: 4px; }
-.button { display: inline-block; background: var(--link); color: white !important; padding: 10px 14px; border-radius: 6px; text-decoration: none !important; font-weight: bold; }
+.button { display: inline-block; background: var(--link); color: white !important; padding: 10px 14px; border-radius: 6px; text-decoration: none !important; font-weight: bold; border: 0; cursor: pointer; font-size: 15px; }
+.button:disabled { opacity: 0.6; cursor: default; }
 footer { max-width: 1100px; margin: 40px auto; padding: 0 20px 30px 20px; color: var(--muted); font-size: 14px; }
 label { display: block; margin-bottom: 8px; font-weight: bold; }
 .record-list { padding-left: 24px; }
