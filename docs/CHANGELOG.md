@@ -3,6 +3,90 @@ All notable changes to AirGapped-Web are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
+
+## [0.5.0] - 2026-09-10
+
+The largest release since the Archiver landed. **0.5.0 makes the offline crawled
+database portable** — the whole thing can now travel as a single self-describing
+JSON file, restored anywhere, fully offline, with zero dependencies — and it
+**repairs the documentation layout** that had drifted out of sync during the
+0.5.0 development cycle. Until now, crawled sites lived only in the browser's
+`localStorage` overlay: durable within one browser, but lost on "clear browsing
+data" and impossible to carry to another machine or browser without exporting
+each site to a zip and hand-pasting it into the file-backed catalog. This release
+closes that gap and consolidates every document under a single canonical
+`docs/` tree.
+
+### Added — Backup & Restore (portable JSON)
+
+- **Download Full Backup (.json).** A new panel on the Archiver page serializes
+  the whole overlay database (all crawled websites, snapshots, pages, and
+  imports) into one versioned JSON file named `airgapped-web-backup-<date>.json`.
+  The file carries a self-describing envelope (`format`, `schema`, `exported`
+  timestamp, `app_version`) so future versions can recognize and migrate it.
+- **Restore from a backup file** with two explicit modes:
+  - **Merge** — keeps the current database and adds only records whose IDs are
+    not already present; duplicate IDs are skipped and counted.
+  - **Replace** — overwrites the entire local database with the backup (guarded
+    by a confirmation prompt).
+- **Live storage-usage indicator.** The Backup & Restore panel shows the current
+  record counts and the approximate number of bytes the overlay occupies in
+  `localStorage`, so operators can see how close they are to the browser quota
+  before a large crawl.
+- **New `core.js` API:** `exportOverlay()` (build the backup envelope),
+  `importOverlay(backup, mode)` (merge/replace with an added/skipped report and
+  quota-safe write), and `overlayStats()` (counts + byte footprint).
+
+### Changed
+
+- **`core.js`** now centralizes overlay shaping in a `sanitizeOverlay()` helper
+  used by `readOverlay()`, restore, and stats, guaranteeing the four record
+  arrays are always well-formed regardless of what a backup file contains.
+- **Archiver page** gains the Backup & Restore section beneath Stored Archives;
+  every crawl, capture, delete, and restore refreshes the storage-usage line.
+- **`archiver.js`** adds `formatBytes()` and a `downloadText()` helper used to
+  build and deliver the JSON backup entirely client-side.
+- **Catalog version** bumped from `0.4.0` to `0.5.0` in
+  `archive/catalog/archive-data.js`, with an updated archive description that
+  mentions portable backups.
+
+### Fixed
+
+- **Documentation layout drift (the big one).** During the 0.5.0 cycle the docs
+  had been duplicated at the repository root *and* under `docs/`, then partially
+  reverted, leaving the tree in an inconsistent state where the root copies and
+  the `docs/` copies disagreed on version and content. This release removes the
+  root-level `architecture.md`, `CHANGELOG.md`, and `import-workflow.md`
+  duplicates entirely and establishes `docs/` as the single canonical home for
+  all three, all updated to 0.5.0. `README.md` remains the only Markdown file at
+  the root.
+- **Feature regression recovered.** The Backup & Restore capability that had been
+  reverted out of `core.js` and `archiver.js` during the layout cleanup is fully
+  restored and re-applied on top of the current tree, so no 0.5.0 work is lost.
+- **Restore robustness.** `importOverlay()` accepts either a full backup
+  envelope or a bare overlay object, rejects unknown formats and non-JSON input
+  with a clear message, and never partially writes: a `localStorage` quota
+  failure during restore is caught and reported instead of corrupting the
+  database.
+
+### Security
+
+- Backup files contain only the same catalog metadata and already-sandboxed
+  captured HTML the app stores locally; import reuses the existing escaping and
+  sandboxed-iframe rendering paths, so restoring a file grants a page no new
+  ability to execute scripts or reach the host app.
+
+### Docs
+
+- `README.md`, `docs/architecture.md`, and `docs/import-workflow.md` now document
+  the backup envelope format, the merge/replace restore modes, and the
+  storage-usage indicator. `docs/architecture.md` gains a dedicated
+  "4. Backup & Restore" section and an expanded security note covering imported
+  files. `docs/import-workflow.md` gains a "Backup & Restore (moving the crawled
+  database)" section alongside the automatic and manual import paths.
+
+---
+
 ## [0.4.0] - 2026-08-23
 A large release that turns AirGapped-Web from a passive, file-backed viewer
 (0.3.1) into an active offline web archiver: it can crawl a live site, inline

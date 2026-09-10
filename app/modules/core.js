@@ -1,29 +1,32 @@
 (function () {
     "use strict";
     window.AGW = window.AGW || {};
-
     // ---- Storage overlay -------------------------------------------------
     // Crawled sites are written here so they appear in the app immediately,
     // with zero file editing and zero dependencies. This is the offline
     // "database" that the Archiver writes into.
     const STORAGE_KEY = "agw_archive_overlay_v1";
-
+    // Backup/restore envelope identifiers (see exportOverlay/importOverlay).
+    const BACKUP_FORMAT = "airgapped-web-overlay-backup";
+    const BACKUP_SCHEMA = 1;
     function emptyOverlay(){ return { websites: [], snapshots: [], pages: [], imports: [] }; }
-
+    // Coerce an arbitrary parsed object into a well-formed overlay (4 arrays).
+    function sanitizeOverlay(raw){
+        const o = raw && typeof raw === "object" ? raw : {};
+        return {
+            websites: Array.isArray(o.websites) ? o.websites : [],
+            snapshots: Array.isArray(o.snapshots) ? o.snapshots : [],
+            pages: Array.isArray(o.pages) ? o.pages : [],
+            imports: Array.isArray(o.imports) ? o.imports : []
+        };
+    }
     function readOverlay(){
         try {
             const raw = window.localStorage.getItem(STORAGE_KEY);
             if (!raw) return emptyOverlay();
-            const parsed = JSON.parse(raw);
-            return {
-                websites: Array.isArray(parsed.websites) ? parsed.websites : [],
-                snapshots: Array.isArray(parsed.snapshots) ? parsed.snapshots : [],
-                pages: Array.isArray(parsed.pages) ? parsed.pages : [],
-                imports: Array.isArray(parsed.imports) ? parsed.imports : []
-            };
+            return sanitizeOverlay(JSON.parse(raw));
         } catch (e) { return emptyOverlay(); }
     }
-
     // Returns true on success, false if storage failed (e.g. quota exceeded).
     function writeOverlay(overlay){
         try {
@@ -33,7 +36,6 @@
             return false;
         }
     }
-
     // Merge a fully-formed archived site (website + snapshot + pages + import)
     // into the overlay database. Returns true on success, false on failure.
     function saveArchivedSite(bundle){
@@ -44,7 +46,6 @@
         if (bundle.import) overlay.imports.push(bundle.import);
         return writeOverlay(overlay);
     }
-
     function deleteArchivedWebsite(websiteId){
         const overlay = readOverlay();
         overlay.pages = overlay.pages.filter(p => p && p.website_id !== websiteId);
@@ -53,13 +54,96 @@
         overlay.websites = overlay.websites.filter(w => w && w.id !== websiteId);
         writeOverlay(overlay);
     }
-
     function clearOverlay(){ writeOverlay(emptyOverlay()); }
-
     function isArchivedWebsite(id){
         return readOverlay().websites.some(w => w && w.id === id);
     }
-
+    // ---- Backup & Restore (portable JSON) --------------------------------
+    // The overlay lives only in localStorage, so it is lost when the browser
+    // is cleared and cannot follow the user to another machine or browser.
+    // These helpers serialize the whole overlay to a single portable file and
+    // load it back, so an air-gapped operator can carry the database on a USB
+    // stick with no server and no dependencies.
+    // Approximate storage footprint of the overlay, for a usage indicator.
+    function overlayStats(){
+        const overlay = readOverlay();
+        let bytes = 0;
+        try { bytes = JSON.stringify(overlay).length; } catch (e) { bytes = 0; }
+        return {
+            websites: overlay.websites.length,
+            snapshots: overlay.snapshots.length,
+            pages: overlay.pages.length,
+            imports: overlay.imports.length,
+            bytes: bytes
+        };
+    }
+    // Build a versioned backup envelope around the current overlay.
+    function exportOverlay(){
+        const source = window.AGW_DATA || {};
+        const appVersion = (source.archive && source.archive.version) || "unknown";
+        return {
+            format: BACKUP_FORMAT,
+            schema: BACKUP_SCHEMA,
+            exported: new Date().toISOString(),
+            app_version: appVersion,
+            overlay: readOverlay()
+        };
+    }
+    // Index the ids already present in an overlay, per record type.
+    function overlayIdSets(overlay){
+        const idSet = arr => new Set(arr.filter(x => x && x.id).map(x => x.id));
+        return {
+            websites: idSet(overlay.websites),
+            snapshots: idSet(overlay.snapshots),
+            pages: idSet(overlay.pages),
+            imports: idSet(overlay.imports)
+        };
+    }
+    // Restore a backup envelope (or a bare overlay object) into the database.
+    //   mode "replace" -> overwrite the whole overlay with the backup.
+    //   mode "merge"   -> keep existing records, add only new ids (default).
+    // Returns { ok, error, mode, added:{...}, skipped:{...} }.
+    function importOverlay(backup, mode){
+        const useMode = mode === "replace" ? "replace" : "merge";
+        const zero = { websites: 0, snapshots: 0, pages: 0, imports: 0 };
+        if (!backup || typeof backup !== "object")
+            return { ok: false, error: "The backup file is empty or not valid JSON.", mode: useMode, added: Object.assign({}, zero), skipped: Object.assign({}, zero) };
+        // Accept either a full envelope or a bare overlay object.
+        const rawOverlay = backup.overlay && typeof backup.overlay === "object" ? backup.overlay : backup;
+        if (backup.format && backup.format !== BACKUP_FORMAT)
+            return { ok: false, error: "Unrecognized backup format: " + String(backup.format) + ".", mode: useMode, added: Object.assign({}, zero), skipped: Object.assign({}, zero) };
+        const incoming = sanitizeOverlay(rawOverlay);
+        const added = Object.assign({}, zero);
+        const skipped = Object.assign({}, zero);
+        let result;
+        if (useMode === "replace"){
+            result = incoming;
+            added.websites = incoming.websites.length;
+            added.snapshots = incoming.snapshots.length;
+            added.pages = incoming.pages.length;
+            added.imports = incoming.imports.length;
+        } else {
+            result = readOverlay();
+            const ids = overlayIdSets(result);
+            const mergeArray = (targetArr, incomingArr, idKey, type) => {
+                for (const item of incomingArr){
+                    if (!item || !item.id){ skipped[type]++; continue; }
+                    if (ids[idKey].has(item.id)){ skipped[type]++; continue; }
+                    targetArr.push(item);
+                    ids[idKey].add(item.id);
+                    added[type]++;
+                }
+            };
+            mergeArray(result.websites, incoming.websites, "websites", "websites");
+            mergeArray(result.snapshots, incoming.snapshots, "snapshots", "snapshots");
+            mergeArray(result.pages, incoming.pages, "pages", "pages");
+            mergeArray(result.imports, incoming.imports, "imports", "imports");
+        }
+        const wrote = writeOverlay(result);
+        if (!wrote)
+            return { ok: false, error: "Could not save: browser storage quota exceeded.", mode: useMode, added, skipped };
+        return { ok: true, error: "", mode: useMode, added, skipped };
+    }
     // ---- Data access (base catalog + overlay merged) ---------------------
     function getData() {
         const source = window.AGW_DATA || {};
@@ -79,7 +163,6 @@
             imports: base.imports.concat(overlay.imports)
         };
     }
-
     function escapeHtml(value) {
         if (value === null || value === undefined) return "";
         return String(value)
@@ -123,12 +206,10 @@
         return p.startsWith("records/") || p.startsWith("archives/");
     }
     function localArchiveLink(path){ return isSafeLocalPath(path) ? "../../archive/" + normalizeLocalPath(path) : ""; }
-
     // A page is "renderable" if it has inline captured HTML OR a safe local path.
     function pageHasContent(page){
         return !!(page && (page.inline_html || isSafeLocalPath(page.local_path)));
     }
-
     function stripTrailingSlash(path){ return normalizeLocalPath(path).replace(/\/+$/, ""); }
     function snapshotIndexPath(snapshot){
         if (!snapshot || !snapshot.root_path) return "";
@@ -179,13 +260,14 @@
             if (!isSafeLocalPath(i.root_path) && !i.inline) warnings.push("Import " + i.id + " has an invalid local root path."); }
         return { valid: errors.length === 0, errors, warnings };
     }
-
     AGW.core = {
         getData, escapeHtml, byId, getQueryParam, normalize, websiteLink, pageLink, snapshotLink,
         snapshotPages, websiteSnapshots, websitePages, websiteImports, renderLink, renderTags, renderNotFound,
         normalizeLocalPath, isSafeLocalPath, localArchiveLink, pageHasContent,
         snapshotIndexPath, snapshotPreferredPage, validateData,
         // storage overlay API
-        readOverlay, saveArchivedSite, deleteArchivedWebsite, clearOverlay, isArchivedWebsite
+        readOverlay, saveArchivedSite, deleteArchivedWebsite, clearOverlay, isArchivedWebsite,
+        // backup & restore API
+        overlayStats, exportOverlay, importOverlay
     };
 })();
